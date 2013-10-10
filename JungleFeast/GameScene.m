@@ -549,6 +549,9 @@ static GameScene* sharedScene;
         if (CGRectContainsPoint(danger.charSprite.boundingBox, dragon.position)) {
             [dangerToDelete addObject:danger];
             num = num - danger.hurt;
+            if(danger.hurt == 100){
+                [[SimpleAudioEngine sharedEngine] playEffect:@"plane.mp3"];
+            }
             NSString *string= [NSString stringWithFormat:@"%i", num];
             [label setString:string];
             [self addWound:dragon.position];
@@ -560,11 +563,6 @@ static GameScene* sharedScene;
     for (Danger *danger in dangerToDelete) {
         if([danger isKindOfClass:[Arrow class]]){
             [[SimpleAudioEngine sharedEngine] playEffect:@"arrow.mp3"];
-            
-        }
-        else if([danger isKindOfClass:[Plane class]]){
-            [[SimpleAudioEngine sharedEngine] playEffect:@"plane.mp3" ];
-            
         }
         
         [_danger removeObject:danger];
