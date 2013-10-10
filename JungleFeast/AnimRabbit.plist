@@ -7,98 +7,7 @@
             <key>rabbit1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{132,323},{63,105}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{63,105}}</string>
-                <key>sourceSize</key>
-                <string>{63,105}</string>
-            </dict>
-            <key>rabbit10.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{67,216},{63,105}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{63,105}}</string>
-                <key>sourceSize</key>
-                <string>{63,105}</string>
-            </dict>
-            <key>rabbit11.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{67,109},{63,105}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{63,105}}</string>
-                <key>sourceSize</key>
-                <string>{63,105}</string>
-            </dict>
-            <key>rabbit12.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{67,2},{63,105}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{63,105}}</string>
-                <key>sourceSize</key>
-                <string>{63,105}</string>
-            </dict>
-            <key>rabbit13.png</key>
-            <dict>
-                <key>frame</key>
                 <string>{{2,323},{63,105}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{63,105}}</string>
-                <key>sourceSize</key>
-                <string>{63,105}</string>
-            </dict>
-            <key>rabbit14.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,216},{63,105}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{63,105}}</string>
-                <key>sourceSize</key>
-                <string>{63,105}</string>
-            </dict>
-            <key>rabbit15.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,109},{63,105}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{63,105}}</string>
-                <key>sourceSize</key>
-                <string>{63,105}</string>
-            </dict>
-            <key>rabbit16.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,2},{63,105}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +20,7 @@
             <key>rabbit2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{132,216},{63,105}}</string>
+                <string>{{2,216},{63,105}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -137,7 +46,7 @@
             <key>rabbit4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{392,2},{63,105}}</string>
+                <string>{{67,109},{63,105}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -150,7 +59,7 @@
             <key>rabbit5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{327,2},{63,105}}</string>
+                <string>{{2,109},{63,105}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -163,7 +72,7 @@
             <key>rabbit6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{262,2},{63,105}}</string>
+                <string>{{132,2},{63,105}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -176,7 +85,7 @@
             <key>rabbit7.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{197,2},{63,105}}</string>
+                <string>{{67,2},{63,105}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -189,20 +98,7 @@
             <key>rabbit8.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{132,2},{63,105}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{63,105}}</string>
-                <key>sourceSize</key>
-                <string>{63,105}</string>
-            </dict>
-            <key>rabbit9.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{67,323},{63,105}}</string>
+                <string>{{2,2},{63,105}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -220,9 +116,9 @@
             <key>realTextureFileName</key>
             <string>AnimRabbit.png</string>
             <key>size</key>
-            <string>{512,512}</string>
+            <string>{256,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:cd3ead1ca0c99058405b0c50e40b3dbc$</string>
+            <string>$TexturePacker:SmartUpdate:87cd0d11434ae47ba41a69401d62f4f4$</string>
             <key>textureFileName</key>
             <string>AnimRabbit.png</string>
         </dict>

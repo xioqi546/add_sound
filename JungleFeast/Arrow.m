@@ -18,9 +18,9 @@
     if (!self) {
         return nil;
     }
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"AnimArrow_HD.plist"];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"AnimArrow.plist"];
     
-    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"AnimArrow_HD.png"];
+    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"AnimArrow.png"];
     [self addChild:spriteSheet];
         NSMutableArray *flyAnimFrames = [NSMutableArray array];
     [flyAnimFrames addObject:

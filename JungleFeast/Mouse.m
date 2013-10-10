@@ -7,22 +7,18 @@
 //
 
 #import "Mouse.h"
-#import "Danger.h"
-#import "SimpleAudioEngine.h"
 
 
 @implementation Mouse
-
-
 
 -(id) init{
     self = [super init];
     if (!self) {
         return nil;
     }
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"AnimMouse_HD.plist"];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"AnimMouse.plist"];
     
-    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"AnimMouse_HD.png"];
+    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"AnimMouse.png"];
     [self addChild:spriteSheet];
     
     
@@ -38,8 +34,6 @@
     self.speed = 70;
     self.point = 1;
     isclean = NO;
-    isrunning = NO;
-    isAttacked = NO;
     
     // add amination
     CGSize winSize = [CCDirector sharedDirector].winSize;
@@ -61,7 +55,6 @@
     
     int width = 3*winSize.width;
     int disappearPoint = arc4random() % width;
-    destination = disappearPoint;
     
     if (actualX - disappearPoint >= 0) {
         charSprite.flipX = NO;
@@ -99,51 +92,6 @@
     
     return self;
 }
-- (void) running
-{
-    isrunning = YES;
-    [self.charSprite stopAction:walkAction];
-    [self.charSprite stopAction:self.moveAction];
-
-    NSMutableArray *foodAnimFrames = [NSMutableArray array];
-    //    for (int i=1; i<=4; i++) {
-    //        [foodAnimFrames addObject:
-    //         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
-    //          [NSString stringWithFormat:@"rabbit%d.png",i]]];
-    //    }
-    for (int i=6; i<=12; i++) {
-        [foodAnimFrames addObject:
-         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
-          [NSString stringWithFormat:@"mouse%d.png",i]]];
-    }
-    //self.charSprite = [CCSprite spriteWithSpriteFrameName:@"rabbit9.png"];
-    CCAnimation *runAnim;
-    runAnim = [CCAnimation animationWithSpriteFrames:foodAnimFrames delay:0.1f];
-    self.walkAction = [CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:runAnim]];
-    [charSprite runAction:walkAction];
-
-}
-- (void) walking
-{
-    isrunning = NO;
-    [self.charSprite stopAction:walkAction];
-    [self.charSprite stopAction:self.moveAction];
-
-    
-    NSMutableArray *foodAnimFrames = [NSMutableArray array];
-    for (int i=1; i<=3; i++) {
-        [foodAnimFrames addObject:
-         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
-          [NSString stringWithFormat:@"mouse%d.png",i]]];
-    }
-    //self.charSprite = [CCSprite spriteWithSpriteFrameName:@"rabbit2.png"];
-    CCAnimation *walkAnim;
-    walkAnim = [CCAnimation animationWithSpriteFrames:foodAnimFrames delay:0.3f];
-    self.walkAction = [CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:walkAnim]];
-    [charSprite runAction:walkAction];
-}
-
-
 
 - (void) dealloc
 {

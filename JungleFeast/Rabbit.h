@@ -10,13 +10,9 @@
 #import "cocos2d.h"
 #import "Food.h"
 
-#import "Danger.h"
-#import "Rhino.h"
-#import "Arrow.h"
-#import "Plane.h"
-#import "SimpleAudioEngine.h"
-
 @interface Rabbit : Food {
+    
 }
+
 
 @end

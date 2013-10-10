@@ -18,9 +18,9 @@
     if (!self) {
         return nil;
     }
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"AnimRhino_HD.plist"];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"AnimRhino2.plist"];
     
-    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"AnimRhino_HD.png"];
+    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"AnimRhino2.png"];
     [self addChild:spriteSheet];
     
     
@@ -34,9 +34,7 @@
     self.charSprite = [CCSprite spriteWithSpriteFrameName:@"Rhino2.png"];
     self.speed = 60;
     self.point = -2;
-    isclean = NO;
-    isrunning = NO;
-    isAttacked = NO;
+    self.isclean = NO;
     
     // add amination
     CGSize winSize = [CCDirector sharedDirector].winSize;
@@ -58,7 +56,6 @@
     
     int width = 3*winSize.width;
     int disappearPoint = arc4random() % width;
-    destination = disappearPoint;
     
     if (actualX - disappearPoint >= 0) {
         charSprite.flipX = NO;
@@ -95,10 +92,7 @@
     [charSprite runAction: self.moveAction];
     return self;
 }
-- (void) running
-{}
-- (void) walking
-{}
+
 - (void) dealloc
 {
     self.charSprite = nil;

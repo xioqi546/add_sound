@@ -18,8 +18,4 @@
 @synthesize moveAction;
 @synthesize isclean;
 
-
-
-
-
 @end

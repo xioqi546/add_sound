@@ -11,7 +11,7 @@
 #import "Food.h"
 
 @interface Mouse : Food {
-
+    
 }
 
 @end

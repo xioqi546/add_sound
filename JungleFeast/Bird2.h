@@ -10,8 +10,8 @@
 #import "cocos2d.h"
 #import "Food.h"
 
-@interface Bird : Food {
+@interface Bird2 : Food {
+    
 }
-
 
 @end

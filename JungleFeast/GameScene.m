@@ -12,11 +12,10 @@
 #import "MainMenuScene.h"
 #import "Rabbit.h"
 #import "Mouse.h"
-#import "Bird.h"
+#import "Bird2.h"
 #import "Rhino.h"
 #import "Plane.h"
 #import "Arrow.h"
-#import "Heart.h"
 
 static GameScene* sharedScene;
 @implementation GameScene
@@ -31,6 +30,15 @@ static GameScene* sharedScene;
 @synthesize castlemove;
 @synthesize _food;
 
+
+/*+(CCScene *) scene
+{
+	CCScene *scene = [CCScene node];
+	GameScene *layer = [GameScene node];
+	[scene addChild: layer];
+	return scene;
+}
+ */
 + (GameScene *) sharedScene
 {
     return sharedScene;
@@ -43,11 +51,8 @@ static GameScene* sharedScene;
         castleInitialActionStopFlag = 0;
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         CCSprite * back = [CCSprite spriteWithFile:@"background.png"];
-        //back.scale = 2;
-
         back.position = ccp( 3*winSize.width/2, winSize.height/2);
         [self addChild:back];
-        
         // initial the danger and food array
         _food = [[NSMutableArray alloc] init];
         _danger = [[NSMutableArray alloc] init];
@@ -61,9 +66,9 @@ static GameScene* sharedScene;
         fire.startSize = 0.5f;
         
         
-        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"AnimDragon_HD.plist"];
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"AnimDragon3.plist"];
         
-        CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"AnimDragon_HD.png"];
+        CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"AnimDragon3.png"];
         [self addChild:spriteSheet];
         
         NSMutableArray *walkAnimFrames = [NSMutableArray array];
@@ -87,7 +92,7 @@ static GameScene* sharedScene;
         
         
         self.dragon = [CCSprite spriteWithSpriteFrameName:@"dragon2.png"];
-        self.dragon.position = ccp(3*winSize.width/2, winSize.height/2);
+        self.dragon.position = ccp(winSize.width/2, winSize.height/2);
         fire.position = self.dragon.position;
         self.walkAction = [CCRepeatForever actionWithAction:
                            [CCAnimate actionWithAnimation:walkAnim]];
@@ -105,8 +110,7 @@ static GameScene* sharedScene;
         
         
         //label = [CCLabelAtlas labelWithString:@"0" charMapFile:@"tuffy_bold_italic-charmap.png" itemWidth:48 itemHeight:64 startCharMap:' '];
-       // label = [CCLabelAtlas labelWithString:@"0" charMapFile:@"fps_images-ipadhd.png" itemWidth:24 itemHeight:64 startCharMap:'.'];
-        label = [CCLabelTTF labelWithString:@"0" fontName:@"Helvetica" fontSize:20];
+        label = [CCLabelAtlas labelWithString:@"0" charMapFile:@"fps_images.png" itemWidth:12 itemHeight:32 startCharMap:'.'];
         
         label.color = ccc3(0,0,0);
         //label.scale = 0.5;
@@ -120,11 +124,10 @@ static GameScene* sharedScene;
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CGRect worldBoundary = CGRectMake(0, 0, winSize.width*3, winSize.height);
     [self runAction:[CCFollow actionWithTarget:dragon worldBoundary:worldBoundary]];
-    [self schedule:@selector(gameLogic:) interval:5];
+    [self schedule:@selector(gameLogic:) interval:2];
     [self schedule:@selector(foodLogic:) interval:2];
     [self schedule:@selector(update:)];
     [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"bg.mp3"];
-    
     sharedScene = self;
     return self;
 }
@@ -136,7 +139,7 @@ static GameScene* sharedScene;
 }
 -(void)foodLogic:(ccTime)dt {
     [self addMouse];
-    [self addBird];
+    [self addBird2];
     int value = (arc4random() % 20) + 1;
     if(value%2 == 0){
         [self addRabbit];
@@ -172,12 +175,12 @@ static GameScene* sharedScene;
     // and along a random position along the Y axis as calculated above
     CGSize winSize = [CCDirector sharedDirector].winSize;
     
-    self.castle.position = ccp( 3*winSize.width/2, winSize.height + self.castle.contentSize.height/2);
+    self.castle.position = ccp( winSize.width/2, winSize.height + self.castle.contentSize.height/2);
     
     [self addChild:self.castle];
     [self.castle runAction: castleAction];
     
-    actionMove = [CCMoveTo actionWithDuration:3 position:ccp(3*winSize.width/2, winSize.height - self.castle.contentSize.height/2)];
+    actionMove = [CCMoveTo actionWithDuration:3 position:ccp(winSize.width/2, winSize.height - self.castle.contentSize.height/2)];
     [self.castle runAction:[CCSequence actions:actionMove, nil]];
     
 }
@@ -191,7 +194,7 @@ static GameScene* sharedScene;
 
 - (void) addArrow {
     Arrow * arrow =[[[Arrow alloc] init] autorelease];
-    [self addChild:arrow.charSprite z:0];
+    [self addChild:arrow.charSprite];
     [_danger addObject:arrow];
 }
 
@@ -200,89 +203,40 @@ static GameScene* sharedScene;
     
     
     Rabbit * rabbit = [[[Rabbit alloc] init] autorelease];
-    int z = 400-(rabbit.charSprite.position.y-rabbit.charSprite.contentSize.height/2);
-    [self addChild:rabbit.charSprite z:z];
+    [self addChild:rabbit.charSprite];
     [_food addObject:rabbit];
 
 }
-
 
 - (void) addMouse {
     
     
     
     Mouse * mouse = [[[Mouse alloc] init] autorelease];
-    int z = 400-(mouse.charSprite.position.y-mouse.charSprite.contentSize.height/2);
-    [self addChild:mouse.charSprite z:z];
+    [self addChild:mouse.charSprite];
     [_food addObject:mouse];
     
 }
 
-- (void) addBird {
-
-    Bird * bird = [[[Bird alloc] init] autorelease];
-    int z = 400-(bird.charSprite.position.y-bird.charSprite.contentSize.height/2);
-    [self addChild:bird.charSprite z:z];
-    [_food addObject:bird];
+- (void) addBird2 {
+    
+    
+    
+    Bird2 * bird2 = [[[Bird2 alloc] init] autorelease];
+    [self addChild:bird2.charSprite];
+    [_food addObject:bird2];
     
 }
 
 - (void) addRhino {
     
     Rhino * rhino = [[[Rhino alloc] init] autorelease];
-    int z = 400-(rhino.charSprite.position.y-rhino.charSprite.contentSize.height/2);
-    [self addChild:rhino.charSprite z:z];
+    [self addChild:rhino.charSprite];
     [_food addObject:rhino];
     
 }
 
-- (void) addHeart:(CGPoint) position, int point {
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCSprite * heart;
-    if(point > 0){
-        heart = [CCSprite spriteWithFile:@"heart.png"];
-    }else if(point < 0){
-        heart = [CCSprite spriteWithFile:@"heart2.png"];
-    }
-    heart.position = position;
-    //CGPoint location = CGPointMake(label.position.x, label.position.y);
-    CCCallBlockN * actionMoveDone = [CCCallBlockN actionWithBlock:^(CCNode *node) {
-        [node removeFromParentAndCleanup:YES];
-        //heart.isclean = YES;
-        
-    }];
-    //int minX = 0;
-    int maxX = 3 * winSize.width;
-    int x = arc4random() % maxX;
-    
-    CCAction * heartAction = [CCSequence actions:
-                              [CCMoveTo actionWithDuration:4 position:ccp(x, winSize.height-100)],
-                              actionMoveDone,
-                              nil];
-    [self addChild:heart];
-    [heart runAction:heartAction];
-}
 
-- (void) addWound:(CGPoint) position {
-    //
-    CCSprite * wound = [CCSprite spriteWithFile:@"wound.png"];
-    wound.position = position;
-    //CGPoint location = CGPointMake(label.position.x, label.position.y);
-    CCCallBlockN * actionMoveDone = [CCCallBlockN actionWithBlock:^(CCNode *node) {
-        [node removeFromParentAndCleanup:YES];
-        //heart.isclean = YES;
-        
-    }];
-    //int minX = 0;
-    
-    CCAction * heartAction = [CCSequence actions:
-                              [CCMoveTo actionWithDuration:0.001 position:position],
-                              actionMoveDone,
-                              nil];
-    [self addChild:wound];
-    [wound runAction:heartAction];
-    //
-}
 
 - (void)registerWithTouchDispatcher
 {
@@ -385,6 +339,7 @@ static GameScene* sharedScene;
         self.dragon.flipX = YES;
     }
     
+    
     if (!dragonMoving) {
         [self.dragon stopAction:self.walkAction];
         [self.dragon runAction:self.walkAction2];
@@ -422,122 +377,88 @@ static GameScene* sharedScene;
     dragonMoving = NO;
 }
 
-
 - (void)update:(ccTime)dt {
     CGSize winSize = [CCDirector sharedDirector].winSize;
     label.position = ccp(winSize.width-100-self.position.x, winSize.height-100);
+    //    self.castle.position=ccp(winSize.width/2-self.position.x, winSize.height - self.castle.contentSize.height/2);
+    //    CCMoveTo *self.castlemoveTo = [CCMoveTo actionWithDuration:1 position:ccp(winSize.width/2-self.position.x, winSize.height - self.castle.contentSize.height/2)];
+    //    [self.castle runAction:self.castlemoveTo];
+    //[self.castle runAction:[CCFollow actionWithTarget:self]];
     NSMutableArray *foodToDelete = [[NSMutableArray alloc] init];
     NSMutableArray *dangerToDelete = [[NSMutableArray alloc] init];
     for (Food *food in _food) {
         
         // run away function
         
-        CGPoint moveDifference = ccpSub(food.charSprite.position, self.dragon.position);
+         CGPoint moveDifference = ccpSub(food.charSprite.position, self.dragon.position);
         float distanceToMove = ccpLength(moveDifference);
-        CGSize winSize = [CCDirector sharedDirector].winSize;
-        int finalX;
-        int speed;
         if (distanceToMove<200)
         {
-            speed = food.speed;
-            speed = 2 * speed + arc4random() % speed;
-            if(!food.isrunning){
-                [food running];
-            }
-            
-            BOOL isGood = YES;
-            if (food.point > 0) {
-                if(food.charSprite.position.x > self.dragon.position.x){
-                    isGood = YES;
-                }else{
-                    isGood = NO;
-                }
-            }else{
-                if(food.charSprite.position.x > self.dragon.position.x){
-                    isGood = NO;
-                }else{
-                    isGood = YES;
-                }
-            }
-            if(isGood){
-                
-                finalX = 3*winSize.width + 200;
+            if (food.point >0) {
+            //[foodToRunaway addObject:food];
+            CGSize winSize = [CCDirector sharedDirector].winSize;
+            int finalX;
+           int speed = food.speed *3;
+            if(food.charSprite.position.x > self.dragon.position.x){
+                finalX = 3*winSize.width +food.charSprite.contentSize.width/2;
                 food.charSprite.flipX = YES;
             }
             else{
-                
-                finalX = - 200;
+                finalX = 0-food.charSprite.contentSize.width/2;
                 food.charSprite.flipX = NO;
             }
-            
-            food.destination = finalX;
-            food.isAttacked = YES;
-        }else
-        {
-            if(food.isrunning){
-                [food walking];
+            int actualDuration = abs(food.charSprite.position.x - finalX)/speed;
+            CCMoveTo * actionMove1 = [CCMoveTo actionWithDuration:actualDuration
+                                                         position:ccp(finalX, food.charSprite.position.y)];
+            CCCallBlockN * actionMoveDone = [CCCallBlockN actionWithBlock:^(CCNode *node) {
+                [node removeFromParentAndCleanup:YES];
+            }];
+            [food.charSprite stopAction:food.moveAction];
+            [food.charSprite runAction:[CCSequence actions:actionMove1, actionMoveDone, nil]];
             }
-            speed = food.speed;
-            speed = speed + arc4random() % speed;
-            finalX = food.destination;
-            food.isAttacked = NO;
+            
+            else {
+                int speed = food.speed *2;
+                int finalX;
+                if(food.charSprite.position.x < self.dragon.position.x){
+                    finalX = 3*winSize.width +food.charSprite.contentSize.width/2;
+                    food.charSprite.flipX = YES;
+                }
+                else{
+                    finalX = 0-food.charSprite.contentSize.width/2;
+                    food.charSprite.flipX = NO;
+                }
+                int actualDuration = abs(food.charSprite.position.x - finalX)/speed;
+                CCMoveTo * actionMove1 = [CCMoveTo actionWithDuration:actualDuration
+                                                             position:ccp(finalX, food.charSprite.position.y)];
+                CCCallBlockN * actionMoveDone = [CCCallBlockN actionWithBlock:^(CCNode *node) {
+                    [node removeFromParentAndCleanup:YES];
+                    food.isclean =YES;
+                }];
+                //[food.charSprite stopAction:food.moveAction];
+                [food.charSprite runAction:[CCSequence actions:actionMove1, actionMoveDone, nil]];
+            }
+            
+            
         }
-        if (food.isAttacked) {
         
-        //distinguish positive and negative point
-            
-        int actualDuration = abs(food.charSprite.position.x - finalX)/speed;
-        CCMoveTo * actionMove1 = [CCMoveTo actionWithDuration:actualDuration
-                                                        position:ccp(finalX, food.charSprite.position.y)];
-        CCCallBlockN * actionMoveDone = [CCCallBlockN actionWithBlock:^(CCNode *node) {
-            [node removeFromParentAndCleanup:YES];
-            
-            food.isclean =YES;
-        }];
+    
+    
         
-        food.moveAction = [CCSequence actions:actionMove1, actionMoveDone, nil];
-        [food.charSprite runAction:food.moveAction];
-            
-        }
-            
-        
-                
         if (CGRectContainsPoint(food.charSprite.boundingBox, dragon.position))
         {
             [foodToDelete addObject:food];
             num = num + food.point;
             NSString *string= [NSString stringWithFormat:@"%i", num];
             [label setString:string];
-            [self addHeart: food.charSprite.position, food.point];
-            
             
         }
         if(food.isclean){
-            
             [foodToDelete addObject:food];
         }
     }
     
     for (Food *food in foodToDelete) {
-        
-        
-        if([food isKindOfClass:[Rabbit class]]){
-            [[SimpleAudioEngine sharedEngine] playEffect:@"rabbit.mp3"];
-            
-        }
-        
-        else if([food isKindOfClass:[Bird class]]){
-            [[SimpleAudioEngine sharedEngine] playEffect:@"sound1.mp3" ];
-            
-        }
-        else if([food isKindOfClass:[Mouse class]]){
-            [[SimpleAudioEngine sharedEngine] playEffect:@"mouse.mp3"];
-        }
-        else if([food isKindOfClass:[Rhino class]]){
-            [[SimpleAudioEngine sharedEngine] playEffect:@"rhino.mp3"];
-        }
-        
-        
         [_food removeObject:food];
         [self removeChild:food.charSprite cleanup:YES];
     }
@@ -549,22 +470,14 @@ static GameScene* sharedScene;
         if (CGRectContainsPoint(danger.charSprite.boundingBox, dragon.position)) {
             [dangerToDelete addObject:danger];
             num = num - danger.hurt;
-            if(danger.hurt == 100){
-                [[SimpleAudioEngine sharedEngine] playEffect:@"plane.mp3"];
-            }
             NSString *string= [NSString stringWithFormat:@"%i", num];
             [label setString:string];
-            [self addWound:dragon.position];
         }
         if(danger.isclean){
             [dangerToDelete addObject:danger];
         }
     }
     for (Danger *danger in dangerToDelete) {
-        if([danger isKindOfClass:[Arrow class]]){
-            [[SimpleAudioEngine sharedEngine] playEffect:@"arrow.mp3"];
-        }
-        
         [_danger removeObject:danger];
         [self removeChild:danger.charSprite cleanup:YES];
     }

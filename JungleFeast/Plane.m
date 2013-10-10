@@ -7,7 +7,6 @@
 //
 
 #import "Plane.h"
-#import "Food.h"
 
 
 @implementation Plane
@@ -18,9 +17,9 @@
     if (!self) {
         return nil;
     }
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"AnimPlane_HD.plist"];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"AnimPlane.plist"];
     
-    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"AnimPlane_HD.png"];
+    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"AnimPlane.png"];
     [self addChild:spriteSheet];
     
     NSMutableArray *flyAnimFrames = [NSMutableArray array];
@@ -37,12 +36,12 @@
     
     // add amination
     CGSize winSize = [CCDirector sharedDirector].winSize;
-    int minY = 3*winSize.height/5;
+    int minY = winSize.height/2 + charSprite.contentSize.height+100;
     int maxY = winSize.height - charSprite.contentSize.height/2;
     int rangeY = maxY - minY;
     int actualY = (arc4random() % rangeY) + minY;
     charSprite.position = ccp(3*winSize.width + charSprite.contentSize.width/2, actualY);
-    //int size = charSprite.contentSize.height;
+    
     
     //Choose the animation according to the time
     CCAnimation *flyAnim = [CCAnimation
@@ -67,7 +66,6 @@
     
     return self;
 }
-
 
 - (void) dealloc
 {

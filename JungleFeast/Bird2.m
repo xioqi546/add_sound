@@ -6,20 +6,19 @@
 //  Copyright 2013年 Sylvia. All rights reserved.
 //
 
-#import "Bird.h"
-
-@implementation Bird
+#import "Bird2.h"
 
 
+@implementation Bird2
 
 -(id) init{
     self = [super init];
     if (!self) {
         return nil;
     }
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"AnimBird_HD.plist"];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"AnimBird2.plist"];
     
-    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"AnimBird_HD.png"];
+    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"AnimBird2.png"];
     [self addChild:spriteSheet];
     
     
@@ -35,8 +34,6 @@
     self.speed = 70;
     self.point = 1;
     isclean = NO;
-    isrunning = NO;
-    isAttacked = NO;
     
     // add amination
     CGSize winSize = [CCDirector sharedDirector].winSize;
@@ -58,7 +55,6 @@
     
     int width = 3*winSize.width;
     int disappearPoint = arc4random() % width;
-    destination = disappearPoint;
     
     if (actualX - disappearPoint >= 0) {
         charSprite.flipX = NO;
@@ -96,11 +92,6 @@
     
     return self;
 }
-- (void) running
-{}
-- (void) walking
-{}
-
 
 - (void) dealloc
 {

@@ -13,7 +13,7 @@
 {
     NSMutableArray * _food;
     NSMutableArray * _danger;
-    CCLabelTTF *label;
+    CCLabelAtlas *label;
     int num;
     BOOL dragonMoving;
     int lives;

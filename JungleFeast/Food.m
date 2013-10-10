@@ -16,12 +16,4 @@
 @synthesize charSprite;
 @synthesize moveAction;
 @synthesize isclean;
-@synthesize isrunning;
-@synthesize isAttacked;
-@synthesize destination;
-
-- (void) running
-{}
-- (void) walking
-{}
 @end

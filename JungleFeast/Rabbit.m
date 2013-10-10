@@ -8,6 +8,7 @@
 
 #import "Rabbit.h"
 
+
 @implementation Rabbit
 
 
@@ -16,9 +17,9 @@
     if (!self) {
         return nil;
     }
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"AnimRabbit_HD.plist"];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"AnimRabbit.plist"];
     
-    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"AnimRabbit_HD.png"];
+    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"AnimRabbit.png"];
     [self addChild:spriteSheet];
     
     
@@ -36,12 +37,10 @@
           [NSString stringWithFormat:@"rabbit%d.png",i]]];
     }
 
-    self.charSprite = [CCSprite spriteWithSpriteFrameName:@"rabbit1.png"];
+    self.charSprite = [CCSprite spriteWithSpriteFrameName:@"rabbit2.png"];
     self.speed = 60;
     self.point = 2;
     isclean = NO;
-    isrunning = NO;
-    isAttacked = NO;
     
     // add amination
     CGSize winSize = [CCDirector sharedDirector].winSize;
@@ -63,7 +62,6 @@
     
     int width = 3*winSize.width;
     int disappearPoint = arc4random() % width;
-    destination = disappearPoint;
     
     if (actualX - disappearPoint >= 0) {
         charSprite.flipX = NO;
@@ -101,49 +99,6 @@
 
     return self;
 }
--(void) running{
-    isrunning = YES;
-    [self.charSprite stopAction:walkAction];
-    [self.charSprite stopAction:self.moveAction];
-    
-    
-    NSMutableArray *foodAnimFrames = [NSMutableArray array];
-//    for (int i=1; i<=4; i++) {
-//        [foodAnimFrames addObject:
-//         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
-//          [NSString stringWithFormat:@"rabbit%d.png",i]]];
-//    }
-    for (int i=9; i<=16; i++) {
-        [foodAnimFrames addObject:
-         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
-          [NSString stringWithFormat:@"rabbit%d.png",i]]];
-    }
-    //self.charSprite = [CCSprite spriteWithSpriteFrameName:@"rabbit9.png"];
-    CCAnimation *runAnim;
-    runAnim = [CCAnimation animationWithSpriteFrames:foodAnimFrames delay:0.1f];
-    self.walkAction = [CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:runAnim]];
-    [charSprite runAction:walkAction];
-    
-}
-- (void) walking{
-    isrunning = NO;
-    [self.charSprite stopAction:walkAction];
-    [self.charSprite stopAction:self.moveAction];
-    
-    NSMutableArray *foodAnimFrames = [NSMutableArray array];
-    for (int i=1; i<=4; i++) {
-        [foodAnimFrames addObject:
-         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
-          [NSString stringWithFormat:@"rabbit%d.png",i]]];
-    }
-    //self.charSprite = [CCSprite spriteWithSpriteFrameName:@"rabbit2.png"];
-    CCAnimation *walkAnim;
-    walkAnim = [CCAnimation animationWithSpriteFrames:foodAnimFrames delay:0.3f];
-    self.walkAction = [CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:walkAnim]];
-    [charSprite runAction:walkAction];
-}
-
-
 
 - (void) dealloc
 {
